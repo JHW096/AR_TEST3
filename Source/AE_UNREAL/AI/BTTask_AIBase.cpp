@@ -133,7 +133,7 @@ void UBTTask_AIBase::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemo
 	StateTime += DelataSeconds;
 	BlockBoard->SetValueAsFloat(TEXT("StateTime"), StateTime);
 
-
+	
 	bool IsHitted = BlockBoard->GetValueAsBool(TEXT("IsHitted"));
 
 	if (GetAiState(OwnerComp) != AIState::DEATH)

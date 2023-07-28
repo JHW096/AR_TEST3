@@ -25,14 +25,15 @@ void UBTTask_DEATH::TickTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemor
 {
 	Super::TickTask(OwnerComp, NodeMemory, DelataSeconds);
 
-	
+	UAnimMontage* DeathMontage = GetGlobalCharacter(OwnerComp)->GetAnimMontage(AIState::DEATH);
 
-	if (2.0f <= GetStateTime(OwnerComp))
+	float DeathAnimTime = DeathMontage->GetDefaultBlendOutTime();
+
+	if (DeathMontage->GetSectionLength(0) < GetStateTime(OwnerComp))
 	{
 		GetGlobalCharacter(OwnerComp)->Destroy();
 		return;
 	}
 
-	
 	
 }

@@ -46,7 +46,7 @@ private:
 	class USphereComponent* SphereComponent = nullptr;
 
 
-	UFUNCTION()
+	/*UFUNCTION()
 	void BeginOverLap(
 		UPrimitiveComponent* OverlappedComponent,
 		AActor* OtherActor,
@@ -54,6 +54,6 @@ private:
 		int32 OtherBodyIndex,
 		bool bFromSweep,
 		const FHitResult& SweepResult
-	);
+	);*/
 
 };

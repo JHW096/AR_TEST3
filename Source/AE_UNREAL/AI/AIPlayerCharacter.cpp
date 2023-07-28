@@ -22,12 +22,16 @@ AAIPlayerCharacter::AAIPlayerCharacter()
 	CameraComponent->FieldOfView = 45.0f;
 	CameraComponent->SetupAttachment(SpringArmComponent);
 	// SpringArmComponent
+
+	
 }
 
 void AAIPlayerCharacter::Tick(float _Delta)
 {
 	// SpringArmComponent->AddLocalRotation();
 	// AddControllerYawInput(100);
+	UAnimMontage* AttackMontage = GetAnimMontage(AIAniState::Attack);
+	setAttackState(GetMesh()->GetAnimInstance()->Montage_IsPlaying(AttackMontage));
 }
 
 void AAIPlayerCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
@@ -86,6 +90,10 @@ void AAIPlayerCharacter::BeginPlay()
 	GetGlobalAnimInstance()->OnPlayMontageNotifyBegin.AddDynamic(this, &AAIPlayerCharacter::AnimNotifyBegin);
 
 	SetAniState(AIAniState::Idle);
+
+
+	TArray<UActorComponent*> StaticMeshs = GetComponentsByTag(USceneComponent::StaticClass(), TEXT("WeaponMesh"));
+	Weapon = Cast<UStaticMeshComponent>(StaticMeshs[0]);
 }
 
 void AAIPlayerCharacter::AttackAction()
@@ -244,3 +252,19 @@ void AAIPlayerCharacter::AnimNotifyBegin(FName NotifyName, const FBranchingPoint
 		}
 	}
 }
+
+void AAIPlayerCharacter::setAttackState(bool _State)
+{
+	if (_State)
+	{
+		IsAttacking = true;
+		Weapon->SetCollisionProfileName(TEXT("PlayerAttack"), true);
+	}
+	else
+	{
+		IsAttacking = false;
+		Weapon->SetCollisionProfileName(TEXT("OverlapAll"), true);
+	}
+}
+
+

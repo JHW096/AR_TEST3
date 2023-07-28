@@ -51,5 +51,12 @@ private:
 	UFUNCTION()
 	void AnimNotifyBegin(FName NotifyName, const FBranchingPointNotifyPayload& BranchingPointPayload);
 
+	////
+	UPROPERTY(Category = "TEST", EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	bool IsAttacking = false;
+	void setAttackState(bool _State);
+
+	UStaticMeshComponent* Weapon = nullptr;
+
 
 };
